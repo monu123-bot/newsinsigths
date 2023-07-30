@@ -27,9 +27,9 @@ const Home = () => {
     <>
     <div>
     
-  <h1>My Web App</h1>
+  <h1 className='heading'>Check What's Going On</h1>
    
-   <Nav/>
+   {/* <Nav/> */}
    <Main/>
    <Footer/>
 

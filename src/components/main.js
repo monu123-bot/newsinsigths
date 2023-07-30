@@ -5,9 +5,16 @@ import React, { useEffect, useState } from 'react';
 import { fetchNewsData } from '../api/fetchnewsdata';
 import Signup from './signup';
 import Login from './login';
+import AuthDetails from './authDetails';
+import Button from 'react-bootstrap/Button';
+import Pagination from 'react-bootstrap/Pagination';
+
 const Main = () => {
+  
     const [articles, setArticles] = useState([]);
+    const [squery,setsQuery] = useState('industry')
     const [trends, setTrends] = useState([]);
+    
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages=5
     const handleNextPage = () => {
@@ -23,9 +30,9 @@ const Main = () => {
     };
     const getNewsData = async () => {
         try {
-          const query = 'industry'; // Customize the query based on your requirements
           
-          const response = await fetchNewsData(query,currentPage);
+          
+          const response = await fetchNewsData(squery,currentPage);
         //   console.log(response)
           // Extract the relevant information from the API response
           const articlesData = response.data.articles;
@@ -47,33 +54,68 @@ const Main = () => {
   
     return (
       <div className="homepage">
-        <h1>Latest News Articles</h1>
+
+
+        <AuthDetails/>
+        
+        <div class="search-bar">
+  <input type="text" value={squery}  onChange={(e)=>{setsQuery(e.target.value)}} id="search-input" placeholder="Enter search query"/>
+  <button onClick={getNewsData} id="search-button">Search</button>
+  </div>
+
+  
+<br/>
+
+
+       <div className='qshow'>
+        <small>Results for {squery}</small>
+       </div>
         <div className="news-articles">
           {articles.map(article => (
-
+            <>
+            <div className='singlearticle'>
+           <a href={article.url} >
             <NewsArticle
             key={article.id}
           title={article.title}
           description={article.description}
-          imageUrl={article.imageUrl}
+          imageUrl={article.urlToImage}
           publishedAt={article.publishedAt}
             />
+            </a>
+            </div>
+</>
           )
           )
           }
         </div>
-        <Signup/>
-        <Login/>
-        <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Previous
-        </button>
-        <span>{currentPage}</span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
+
+        <br/>
+        <div className="pagination1">
+
+       
+
+
+    <Pagination>
+     
+      <Pagination.Prev onClick={handlePrevPage} disabled={currentPage === 1} />
+      
+      <Pagination.Item active>{currentPage}</Pagination.Item>
+      
+      <Pagination.Next onClick={handleNextPage} disabled={currentPage === totalPages} />
+      
+    </Pagination>
+
+     
       </div>
-        <h1>Trending Topics</h1>
+     
+
+      
+
+      
+      
+        <br/>
+        {/* <h1>Trending Topics</h1> */}
         {/* <div className="trends">
           {trends.map((trend) => (
             <Trends key={trend.id} title={trend.title} description={trend.description} />
