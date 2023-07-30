@@ -3,9 +3,9 @@ import axios from 'axios';
 // const NewsAPI = require('newsapi');
 // const newsapi = new NewsAPI('2f025549e258407a81b1af270d53c182');
 
-export const fetchNewsData = async (query,page) => {
-
-  console.log('query with page',page)
+export const fetchNewsData = async (query,page,startDate,endDate) => {
+  console.log('query with page',page,startDate,endDate)
+  
   // try {
   //   newsapi.v2.everything({
   //     q: 'bitcoin',
@@ -32,7 +32,7 @@ export const fetchNewsData = async (query,page) => {
 
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/everything?q=${query}&apiKey=2f025549e258407a81b1af270d53c182&page=${page}`
+        `https://newsapi.org/v2/everything?q=${query}&from=${startDate}&to=${endDate}&apiKey=2f025549e258407a81b1af270d53c182&page=${page}`
       );
   
       // Process the API response and return the data

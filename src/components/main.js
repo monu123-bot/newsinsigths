@@ -8,10 +8,31 @@ import Login from './login';
 import AuthDetails from './authDetails';
 import Button from 'react-bootstrap/Button';
 import Pagination from 'react-bootstrap/Pagination';
+import ScrollButton from './scrollbutton';
 
 const Main = () => {
+  function formatDateToDDMMYYYY(date) {
+    const d = new Date(date);
   
-    const [articles, setArticles] = useState([]);
+    // Get day, month, and year from the date object
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+  
+    // Combine day, month, and year with dashes in between
+    const formattedDate = `${year}-${month}-${day}`;
+   console.log(formattedDate)
+    return formattedDate;
+  }
+
+  // Get the current date in milliseconds using Date.now()
+
+
+// Convert the current date to "dd-mm-yyyy" format
+const [isloading,setIsLoading] = useState(false)
+   const [startDate,setStartDate] = useState(formatDateToDDMMYYYY(Date.now()))
+   const [endDate,setEndDate] = useState(formatDateToDDMMYYYY(Date.now()- 86400000 ))
+   const [articles, setArticles] = useState([]);
     const [squery,setsQuery] = useState('industry')
     const [trends, setTrends] = useState([]);
     
@@ -31,8 +52,11 @@ const Main = () => {
     const getNewsData = async () => {
         try {
           
-          
-          const response = await fetchNewsData(squery,currentPage);
+          setIsLoading(true)
+          const response = await fetchNewsData(squery,currentPage,startDate,endDate);
+          if (response){
+            setIsLoading(false)
+          }
         //   console.log(response)
           // Extract the relevant information from the API response
           const articlesData = response.data.articles;
@@ -53,6 +77,7 @@ const Main = () => {
     }, [currentPage]);
   
     return (
+      <>
       <div className="homepage">
 
 
@@ -60,10 +85,28 @@ const Main = () => {
         
         <div class="search-bar">
   <input type="text" value={squery}  onChange={(e)=>{setsQuery(e.target.value)}} id="search-input" placeholder="Enter search query"/>
-  <button onClick={getNewsData} id="search-button">Search</button>
-  </div>
-
   
+ 
+
+</div>
+<div className='search-date' >
+<label for="start">Start date:</label>
+
+<input onChange={(e)=>{setStartDate(e.target.value)}} type="date" id="start" name="trip-start"
+       value={startDate}
+       />
+
+<label for="end">End date:</label>
+
+<input onChange={(e)=>{setEndDate(e.target.value)}} type="date" id="start" name="trip-start"
+       value={endDate}
+       />
+
+</div>
+<div className='searchbtn' >
+<button onClick={getNewsData} id="search-button">Search</button>
+</div>
+
 <br/>
 
 
@@ -71,7 +114,7 @@ const Main = () => {
         <small>Results for {squery}</small>
        </div>
         <div className="news-articles">
-          {articles.map(article => (
+          {  isloading ?  <p className='loading-p'>Loading....</p>:  articles.map(article => (
             <>
             <div className='singlearticle'>
            <a href={article.url} >
@@ -86,7 +129,7 @@ const Main = () => {
             </div>
 </>
           )
-          )
+          ) 
           }
         </div>
 
@@ -122,6 +165,9 @@ const Main = () => {
           ))}
         </div> */}
       </div>
+
+      <ScrollButton/>
+      </>
     );
   
 }

@@ -106,10 +106,133 @@
 </html>
 <style>
   /* Example: CSS styles for the search bar component */
-.search-bar {
+.loading-p{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+a{
+  text-decoration: none;
+}
+  @media (max-width: 600px) {
+  /* Styles for screens with a maximum width of 600px */
+  label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: 0.4rem 0;
+}
+.search-date{
+  width: 90%px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+  .news-articles{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .search-bar {
   display: flex;
   align-items: center;
-  width: 90%;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.searchbtn{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+#search-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.singlearticle{
+  margin: 20px;
+  border: 1px solid grey;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+img{
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.article-description{
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+
+}
+
+.article-title{
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+.article-published-at{
+  padding:10px;
+  text-decoration: none;
+  color: black;
+}
+.pagination1{
+  margin-left: auto;
+  margin-right: auto;
+  
+  text-align: center;
+  width: fit-content;
+ 
+}
+.qshow{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login-form{
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+ text-align: center;
+
+}
+.auth-details{
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+ text-align: center;
+}
+.heading{
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+}
+
+@media (min-width: 600px) {
+  .news-articles{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .search-bar {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -134,6 +257,8 @@
 }
 img{
   width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 .article-description{
   padding: 10px;
@@ -180,5 +305,26 @@ img{
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+}
+
+
+
+.search-date{
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.searchbtn{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 }
 </style>
